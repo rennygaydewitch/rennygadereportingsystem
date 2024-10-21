@@ -1,4 +1,90 @@
-<video width="1920" height="1080" controls autoplay>
-    <source src="rennygade.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-  </video> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rennygayde Reporting System</title>
+    <style>
+        body {
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #00ff00;
+        }
+
+        #typewriter {
+            font-size: 1em;
+        }
+
+        #menu {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            font-size: 1.5em;
+            margin: 15px 0; /* Added margin for spacing */
+            color: #00ff00; /* Neon green */
+            text-decoration: none;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+            text-align: center;
+            width: 300px; /* Set width for consistent button size */
+        }
+
+        .menu-item:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="typewriter"></div>
+    <div id="menu">
+        <a href="rennygadereport.html" class="menu-item">Report Rennygade Classics Here</a><br>
+        <a href="about.html" class="menu-item">About Me</a><br>
+        <a href="tmh.html" class="menu-item">TMH Project!</a>
+    </div>
+
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const text = "MSX-DOS LOADING...........20%.....34%....76%...Complete! Welcome to the Rennygayde Reporting System!";
+        const speed = 80; // typing speed in milliseconds
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Once typing is done, display the menu
+                setTimeout(showMenu, 500); // Delay before showing menu
+            }
+        }
+
+        function showMenu() {
+            document.getElementById("menu").style.display = "block";
+        }
+
+        // Start the typewriter effect on page load
+        window.onload = function() {
+            typeWriter();
+        };
+    </script>
+
+</body>
+</html>
