@@ -16,6 +16,8 @@
             height: 100vh;
             margin: 0;
             color: #00ff00;
+            position: relative;
+            overflow: hidden;
         }
 
         #typewriter {
@@ -25,66 +27,138 @@
         #menu {
             display: none;
             margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .menu-item {
             font-size: 1.5em;
-            margin: 15px 0; /* Added margin for spacing */
-            color: #00ff00; /* Neon green */
+            margin: 15px 0;
+            color: #00ff00;
             text-decoration: none;
             border: 2px solid #00ff00;
             padding: 10px 20px;
             transition: background-color 0.3s, color 0.3s;
             display: inline-block;
             text-align: center;
-            width: 300px; /* Set width for consistent button size */
+            width: 300px;
         }
 
         .menu-item:hover {
             background-color: #00ff00;
             color: #000;
         }
+
+        #finalText {
+            color: #00ff00;
+            text-align: center;
+            font-size: 2em;
+            margin-top: 20px;
+            display: none;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
-
+    <canvas id="matrixCanvas"></canvas>
     <div id="typewriter"></div>
+    <div id="finalText" style="display: none; text-align: center; font-size: 2em; margin-top: 20px;"></div>
+    
     <div id="menu">
         <a href="rennygadereport.html" class="menu-item">Report Rennygade Classics Here</a><br>
         <a href="about.html" class="menu-item">About Me</a><br>
         <a href="tmh.html" class="menu-item">TMH Project!</a>
+        
+        <button id="muteButton" class="menu-item" style="background-color: #000; color: #00ff00; border: none; padding: 0; margin-top: 10px; display: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#00ff00" viewBox="0 0 24 24">
+                <path d="M12 3v6.586L16.586 3H12zm1 18.414L16.414 18H12v3.414zM3 12c0 2.756 1.348 5.215 3.437 6.648L7.995 18H3v-6h4.995l.442-1.648C4.571 12.432 3 10.383 3 8h3c0 2.62 2.065 4.74 4.648 4.971L11 14H3zM22 4.719l-1.414 1.414A8.962 8.962 0 0 0 19 12a8.962 8.962 0 0 0 1.586 5.293L22 20.281A11.964 11.964 0 0 1 21 12a11.964 11.964 0 0 1 1-7.281z"/>
+            </svg>
+        </button>
     </div>
-
+    
     <audio id="backgroundMusic" autoplay loop>
-        <source src="background.mp3" type="audio/mp3">
+        <source src="background.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        const text = "MSX-DOS LOADING...........20%.....34%....76%...Complete! Welcome to the Rennygayde Reporting System!";
-        const speed = 80; // typing speed in milliseconds
+        const originalText = "MSX-DOS LOADING...........20%.....34%....76%...Complete! Welcome to the Rennygayde Reporting System!";
+        const finalText = "The Rennygade Reporting System";
+        const speed = 80;
         let index = 0;
 
         function typeWriter() {
-            if (index < text.length) {
-                document.getElementById("typewriter").innerHTML += text.charAt(index);
+            if (index < originalText.length) {
+                document.getElementById("typewriter").innerHTML += originalText.charAt(index);
                 index++;
                 setTimeout(typeWriter, speed);
             } else {
-                // Once typing is done, display the menu
-                setTimeout(showMenu, 500); // Delay before showing menu
+                setTimeout(replaceText, 500);
             }
+        }
+
+        function replaceText() {
+            document.getElementById("typewriter").style.display = "none";
+            document.getElementById("finalText").innerHTML = finalText;
+            document.getElementById("finalText").style.display = "block";
+            setTimeout(showMenu, 500);
         }
 
         function showMenu() {
             document.getElementById("menu").style.display = "block";
+            document.getElementById("muteButton").style.display = "inline-block";
+            startMatrixRain();
         }
 
-        // Start the typewriter effect on page load
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < columns; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        function startMatrixRain() {
+            setInterval(draw, 35);
+        }
+
         window.onload = function() {
             typeWriter();
         };
     </script>
-
 </body>
 </html>
