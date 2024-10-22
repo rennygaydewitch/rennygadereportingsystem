@@ -7,7 +7,6 @@
     <title>Rennygayde Reporting System</title>
     <style>
         body {
-            background-color: #000;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
@@ -22,6 +21,8 @@
 
         #typewriter {
             font-size: 1em;
+            z-index: 2; /* Ensure text is above canvas */
+            position: relative; /* Needed for z-index to take effect */
         }
 
         #menu {
@@ -30,6 +31,8 @@
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
+            z-index: 2; /* Ensure menu is above canvas */
+            position: relative; /* Needed for z-index to take effect */
         }
 
         .menu-item {
@@ -56,19 +59,35 @@
             font-size: 2em;
             margin-top: 20px;
             display: none;
+            z-index: 2; /* Ensure final text is above canvas */
+            position: relative; /* Needed for z-index to take effect */
         }
 
         canvas {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: -1;
+            z-index: 1; /* Canvas below text and menu */
             width: 100%;
             height: 100%;
+        }
+
+        video#bgVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1; /* Video is behind everything */
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
+    <video id="bgVideo" autoplay loop muted>
+        <source src="bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <canvas id="matrixCanvas"></canvas>
     <div id="typewriter"></div>
     <div id="finalText" style="display: none; text-align: center; font-size: 2em; margin-top: 20px;"></div>
@@ -76,7 +95,8 @@
     <div id="menu">
         <a href="rennygadereport.html" class="menu-item">Report Rennygade Classics Here</a><br>
         <a href="about.html" class="menu-item">About Me</a><br>
-        <a href="tmh.html" class="menu-item">TMH Project!</a>
+        <a href="tmh.html" class="menu-item">TMH Project!</a><br>
+        <a href="#" class="menu-item" onclick="showPCInfo()">PC Info</a>
         
         <button id="muteButton" class="menu-item" style="background-color: #000; color: #00ff00; border: none; padding: 0; margin-top: 10px; display: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#00ff00" viewBox="0 0 24 24">
@@ -119,6 +139,15 @@
             startMatrixRain();
         }
 
+        function showPCInfo() {
+            const pcInfo = `
+                User Agent: ${navigator.userAgent}
+                Screen Resolution: ${screen.width} x ${screen.height}
+                Color Depth: ${screen.colorDepth} bits
+            `;
+            alert(pcInfo);
+        }
+
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -131,10 +160,10 @@
         const drops = Array(columns).fill(1);
 
         function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Adjusted for transparent effect
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#00ff00';
+            ctx.fillStyle = 'rgba(0, 255, 0, 0.8)'; // Slightly transparent green
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < columns; i++) {

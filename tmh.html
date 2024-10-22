@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMH Project</title>
+    <style>
+        body {
+            background-color: #353333;
+            color: #92703e; /* Dark brass color */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #tmhImage {
+            margin-bottom: 20px;
+            max-width: 300px;
+            height: auto;
+            animation: spin 10s linear forwards;
+        }
+
+        #joinText {
+            font-size: 2em;
+            display: none;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-image 0.3s, -webkit-background-clip 0.3s, -webkit-text-fill-color 0.3s;
+        }
+
+        #qrCode {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #loadingBar {
+            width: 300px;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px; /* Moved below the logo */
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+        #progress {
+            height: 100%;
+            width: 0;
+            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8); /* Trans pride colors */
+            animation: loading 10s linear forwards;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes loading {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        #joinText:hover {
+            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <img id="tmhImage" src="tmh.png" alt="TMH Logo">
+    <div id="loadingBar">
+        <div id="progress"></div>
+    </div>
+    <div id="joinText">Join Here!</div>
+    <div id="qrCode"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        const qrLink = "https://discord.gg/TMH";
+
+        function showContent() {
+            const joinText = document.getElementById("joinText");
+            const qrCode = document.getElementById("qrCode");
+            const loadingBar = document.getElementById("loadingBar");
+
+            joinText.style.display = 'block';
+            setTimeout(() => {
+                const qrCodeInstance = new QRCode(qrCode, {
+                    text: qrLink,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#b08d57",
+                    colorLight: "#000000",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                qrCode.style.display = 'block';
+            }, 1000);
+
+            loadingBar.style.opacity = '0';
+            setTimeout(() => {
+                loadingBar.style.display = 'none'; // Set display to none after fading out
+            }, 500); // Match this delay with the transition time
+        }
+
+        setTimeout(showContent, 10000);
+
+        document.getElementById("joinText").onclick = function() {
+            window.open(qrLink, "_blank");
+        };
+    </script>
+</body>
+</html>
