@@ -17,35 +17,54 @@
             color: #00ff00;
             position: relative;
             overflow: hidden;
+            cursor: url('moon.cur'), auto; /* Custom cursor */
         }
 
-        #typewriter {
-            font-size: 1em;
-            z-index: 2; 
-            position: relative; 
+        #loadingText {
+            font-size: 2em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #spinner {
+            border: 8px solid rgba(0, 255, 0, 0.3); /* Light green outline */
+            border-top: 8px solid #00ff00; /* Green color for the progressive fill */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 10s linear forwards; /* 10 seconds for the spinner to complete */
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         #menu {
             display: none;
             margin-top: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* black background */
+            padding: 10px; /* Reduced padding for a tighter fit */
             border-radius: 10px;
             z-index: 2; 
-            position: relative; 
+            position: relative;
+            width: auto; /* Auto width to fit content */
         }
 
         .menu-item {
             font-size: 1.5em;
-            margin: 15px 0;
+            margin: 10px 0; /* Reduced margin for tighter spacing */
             color: #00ff00;
             text-decoration: none;
             border: 2px solid #00ff00;
             padding: 10px 20px;
             transition: background-color 0.3s, color 0.3s;
-            display: inline-block;
+            display: block; /* Ensures items are stacked in the menu */
             text-align: center;
-            width: 300px;
+            width: auto; /* Remove fixed width */
         }
 
         .menu-item:hover {
@@ -89,20 +108,17 @@
         Your browser does not support the video tag.
     </video>
     <canvas id="matrixCanvas"></canvas>
-    <div id="typewriter"></div>
+    
+    <div id="loadingText">Now Loading</div>
+    <div id="spinner"></div>
+
     <div id="finalText" style="display: none; text-align: center; font-size: 2em; margin-top: 20px;"></div>
     
     <div id="menu">
         <a href="rennygadereport.html" class="menu-item">Report Rennygade Classics Here</a><br>
         <a href="about.html" class="menu-item">About Me</a><br>
         <a href="tmh.html" class="menu-item">TMH Project!</a><br>
-        <a href="#" class="menu-item" onclick="showPCInfo()">PC Info</a>
-        
-        <button id="muteButton" class="menu-item" style="background-color: #000; color: #00ff00; border: none; padding: 0; margin-top: 10px; display: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#00ff00" viewBox="0 0 24 24">
-                <path d="M12 3v6.586L16.586 3H12zm1 18.414L16.414 18H12v3.414zM3 12c0 2.756 1.348 5.215 3.437 6.648L7.995 18H3v-6h4.995l.442-1.648C4.571 12.432 3 10.383 3 8h3c0 2.62 2.065 4.74 4.648 4.971L11 14H3zM22 4.719l-1.414 1.414A8.962 8.962 0 0 0 19 12a8.962 8.962 0 0 0 1.586 5.293L22 20.281A11.964 11.964 0 0 1 21 12a11.964 11.964 0 0 1 1-7.281z"/>
-            </svg>
-        </button>
+        <a href="magik.html" class="menu-item">Magik Stuff</a><br>
     </div>
     
     <audio id="backgroundMusic" autoplay loop>
@@ -111,42 +127,23 @@
     </audio>
 
     <script>
-        const originalText = "MSX-DOS LOADING...........20%.....34%....76%...Complete! Welcome to the Rennygayde Reporting System!";
         const finalText = "The Rennygade Reporting System";
-        const speed = 80;
-        let index = 0;
-
-        function typeWriter() {
-            if (index < originalText.length) {
-                document.getElementById("typewriter").innerHTML += originalText.charAt(index);
-                index++;
-                setTimeout(typeWriter, speed);
-            } else {
-                setTimeout(replaceText, 500);
-            }
-        }
-
-        function replaceText() {
-            document.getElementById("typewriter").style.display = "none";
-            document.getElementById("finalText").innerHTML = finalText;
-            document.getElementById("finalText").style.display = "block";
-            setTimeout(showMenu, 500);
-        }
 
         function showMenu() {
             document.getElementById("menu").style.display = "block";
-            document.getElementById("muteButton").style.display = "inline-block";
             startMatrixRain();
         }
 
-        function showPCInfo() {
-            const pcInfo = `
-                User Agent: ${navigator.userAgent}
-                Screen Resolution: ${screen.width} x ${screen.height}
-                Color Depth: ${screen.colorDepth} bits
-            `;
-            alert(pcInfo);
-        }
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById("spinner").style.display = "none";
+                document.getElementById("loadingText").style.display = "none";
+                document.getElementById("finalText").innerHTML = finalText;
+                document.getElementById("finalText").style.display = "block";
+                setTimeout(showMenu, 500);
+            }, 10000); // Spinner will show for 10 seconds
+        };
+
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -154,7 +151,7 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const chars = '*✩.*✩.☾·:·.☾.☾.*✩.☾·:·.☾.☾..*✩..*✩.☾·:·.☾.☾·:·.☾.☾*✩.☾·:·.☾.☾.*✩.☾·:·.☾.☾';
         const fontSize = 16;
         const columns = Math.floor(canvas.width / fontSize);
         const drops = Array(columns).fill(1);
@@ -184,10 +181,6 @@
         function startMatrixRain() {
             setInterval(draw, 35);
         }
-
-        window.onload = function() {
-            typeWriter();
-        };
     </script>
 </body>
 </html>
