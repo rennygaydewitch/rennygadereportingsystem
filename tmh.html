@@ -7,7 +7,7 @@
     <style>
         body {
             background-color: #353333;
-            color: #92703e; 
+            color: #92703e;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
@@ -30,12 +30,13 @@
             display: none;
             margin-top: 20px;
             cursor: pointer;
-            transition: background-image 0.3s, -webkit-background-clip 0.3s, -webkit-text-fill-color 0.3s;
+            transition: color 0.3s;
         }
 
         #qrCode {
             display: none;
             margin-top: 20px;
+            transition: transform 0.3s, background-color 0.3s;
         }
 
         #loadingBar {
@@ -44,15 +45,14 @@
             background-color: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
-            margin-top: 20px; 
-            opacity: 1;
-            transition: opacity 0.5s ease-out;
+            margin-top: 20px;
+            position: relative;
         }
 
         #progress {
             height: 100%;
             width: 0;
-            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8); /* Trans pride colors :D*/
+            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8);
             animation: loading 10s linear forwards;
         }
 
@@ -76,6 +76,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        @keyframes wave {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.05); }
+        }
+
+        #qrCode:hover {
+            animation: wave 1s infinite;
+            color: #55cdfc; /* Change QR code color on hover */
+        }
     </style>
 </head>
 <body>
@@ -91,27 +103,29 @@
         const qrLink = "https://discord.gg/TMH";
 
         function showContent() {
+            const tmhImage = document.getElementById("tmhImage");
             const joinText = document.getElementById("joinText");
             const qrCode = document.getElementById("qrCode");
             const loadingBar = document.getElementById("loadingBar");
 
+            tmhImage.style.animation = 'slideUp 1s forwards';
             joinText.style.display = 'block';
+
             setTimeout(() => {
                 const qrCodeInstance = new QRCode(qrCode, {
                     text: qrLink,
                     width: 200,
                     height: 200,
-                    colorDark: "#b08d57",
+                    colorDark: "#55cdfc",
                     colorLight: "#000000",
                     correctLevel: QRCode.CorrectLevel.H
                 });
                 qrCode.style.display = 'block';
+                loadingBar.style.opacity = 0; // Make the loading bar disappear
+                setTimeout(() => {
+                    loadingBar.style.display = 'none'; // Remove from the DOM after fading out
+                }, 500);
             }, 1000);
-
-            loadingBar.style.opacity = '0';
-            setTimeout(() => {
-                loadingBar.style.display = 'none';
-            }, 500);
         }
 
         setTimeout(showContent, 10000);
