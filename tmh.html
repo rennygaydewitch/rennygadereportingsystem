@@ -7,7 +7,7 @@
     <style>
         body {
             background-color: #353333;
-            color: #92703e; /* Dark brass color */
+            color: #92703e; 
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
@@ -44,7 +44,7 @@
             background-color: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
-            margin-top: 20px; /* Moved below the logo */
+            margin-top: 20px; 
             opacity: 1;
             transition: opacity 0.5s ease-out;
         }
@@ -52,7 +52,7 @@
         #progress {
             height: 100%;
             width: 0;
-            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8); /* Trans pride colors */
+            background-image: linear-gradient(to right, #55cdfc, #f7a3b8, #f7a3b8); /* Trans pride colors :D*/
             animation: loading 10s linear forwards;
         }
 
@@ -110,8 +110,8 @@
 
             loadingBar.style.opacity = '0';
             setTimeout(() => {
-                loadingBar.style.display = 'none'; // Set display to none after fading out
-            }, 500); // Match this delay with the transition time
+                loadingBar.style.display = 'none';
+            }, 500);
         }
 
         setTimeout(showContent, 10000);
