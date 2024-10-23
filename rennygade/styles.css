@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+#typewriter {
+    font-size: 2em;
+    text-align: center;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+#overlayText {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    font-size: 4em;
+    color: red;
+    white-space: nowrap;
+    opacity: 0.8;
+    animation: scroll 10s linear infinite;
+    display: none;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100vw);
+    }
+}
