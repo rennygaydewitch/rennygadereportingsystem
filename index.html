@@ -2,185 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rennygayde Reporting System</title>
-    <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #00ff00;
-            position: relative;
-            overflow: hidden;
-            cursor: url('moon.cur'), auto; /* Custom cursor */
-        }
-
-        #loadingText {
-            font-size: 2em;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        #spinner {
-            border: 8px solid rgba(0, 255, 0, 0.3); /* Light green outline */
-            border-top: 8px solid #00ff00; /* Green color for the progressive fill */
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            animation: spin 10s linear forwards; /* 10 seconds for the spinner to complete */
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #menu {
-            display: none;
-            margin-top: 20px;
-            background-color: rgba(0, 0, 0, 0.8); /* black background */
-            padding: 10px; /* Reduced padding for a tighter fit */
-            border-radius: 10px;
-            z-index: 2; 
-            position: relative;
-            width: auto; /* Auto width to fit content */
-        }
-
-        .menu-item {
-            font-size: 1.5em;
-            margin: 10px 0; /* Reduced margin for tighter spacing */
-            color: #00ff00;
-            text-decoration: none;
-            border: 2px solid #00ff00;
-            padding: 10px 20px;
-            transition: background-color 0.3s, color 0.3s;
-            display: block; /* Ensures items are stacked in the menu */
-            text-align: center;
-            width: auto; /* Remove fixed width */
-        }
-
-        .menu-item:hover {
-            background-color: #00ff00;
-            color: #000;
-        }
-
-        #finalText {
-            color: #00ff00;
-            text-align: center;
-            font-size: 2em;
-            margin-top: 20px;
-            display: none;
-            z-index: 2; 
-            position: relative;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-        }
-
-        video#bgVideo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
-            object-fit: cover;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <video id="bgVideo" autoplay loop muted>
-        <source src="bg.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <canvas id="matrixCanvas"></canvas>
-    
-    <div id="loadingText">Now Loading</div>
-    <div id="spinner"></div>
-
-    <div id="finalText" style="display: none; text-align: center; font-size: 2em; margin-top: 20px;"></div>
-    
-    <div id="menu">
-        <a href="rennygadereport.html" class="menu-item">Report Rennygade Classics Here</a><br>
-        <a href="about.html" class="menu-item">About Me</a><br>
-        <a href="tmh.html" class="menu-item">TMH Project!</a><br>
-        <a href="magik.html" class="menu-item">Magik Stuff</a><br>
+    <div class="intro-text" id="introText">
+        Hi, I'm Ren (She/Her). Welcome to my about me page. Feel free to take a gander around. Feel free to take this Mark 23 SOCOM, it uses a .45 ACP cartridge and has a 12+1 round capacity. It includes the weapon itself, the AN/PEQ-6 Laser Aiming Module (LAM) manufactured by Insight Technology, and the large suppressor produced by Knight's Armament Company, pretty fucking cool right?
     </div>
-    
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="background.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 
-    <script>
-        const finalText = "The Rennygade Reporting System";
+    <div class="menu-container">
+        <div class="menu-options" id="menuOptions">
+            <a href="#">Main Page</a>
+            <a href="#">Report Rennygade Classics</a>
+            <a href="#">TMH Stuff!</a>
+            <a href="#">Magik Stuff</a>
+        </div>
+        
+        <div class="menu-toggle" id="menuToggle">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 21L22 3H2z"></path>
+            </svg>
+        </div>
+    </div>
 
-        function showMenu() {
-            document.getElementById("menu").style.display = "block";
-            startMatrixRain();
-        }
+    <img src="media/socom.png" alt="Mark 23 SOCOM" class="socom-image" id="socomImage">
 
-        window.onload = function() {
-            setTimeout(() => {
-                document.getElementById("spinner").style.display = "none";
-                document.getElementById("loadingText").style.display = "none";
-                document.getElementById("finalText").innerHTML = finalText;
-                document.getElementById("finalText").style.display = "block";
-                setTimeout(showMenu, 500);
-            }, 10000); // Spinner will show for 10 seconds
-        };
+    <div class="icon-container">
+        <a href="https://www.instagram.com/rennygaydewitch/" target="_blank">
+            <img class="icon" src="media/instagram.svg" alt="Instagram">
+        </a>
+        <a href="https://steamcommunity.com/id/rennygade/" target="_blank">
+            <img class="icon" src="media/steam.svg" alt="Steam">
+        </a>
+        <a href="https://www.facebook.com/renaran.beh/" target="_blank">
+            <img class="icon" src="media/facebook.svg" alt="Facebook">
+        </a>
+        <a href="https://discord.com" target="_blank">
+            <img class="icon" src="media/discord.svg" alt="Discord">
+        </a>
+        <a class="tmh-icon">
+            <img class="icon" src="media/tmh.svg" alt="TMH">
+        </a>
+    </div>
 
+    <canvas id="qrCode"></canvas>
 
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
+    <audio id="beepSound" src="media/beep.wav"></audio>
+    <audio id="selectSound" src="media/select.wav"></audio>
+    <audio id="bgMusic" src="media/bgmusic.mp3" loop autoplay></audio>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const chars = '*✩.*✩.☾·:·.☾.☾.*✩.☾·:·.☾.☾..*✩..*✩.☾·:·.☾.☾·:·.☾.☾*✩.☾·:·.☾.☾.*✩.☾·:·.☾.☾';
-        const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(1);
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = 'rgba(0, 255, 0, 0.8)';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < columns; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-
-                drops[i]++;
-            }
-        }
-
-        function startMatrixRain() {
-            setInterval(draw, 35);
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
