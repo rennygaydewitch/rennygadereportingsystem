@@ -62,7 +62,7 @@ body {
     text-decoration: none;
     flex: 1;
     text-align: center;
-    border-right: 1px solid #444;
+    border-right: 2px solid #444;
 }
 
 .menu-options a:last-child {
@@ -71,7 +71,7 @@ body {
 
 .menu-options a:hover {
     animation: bounce 0.3s;
-    background-color: #222;
+    background-color: #131313;
 }
 
 @keyframes bounce {
@@ -131,7 +131,7 @@ body {
 }
 
 .icon:hover {
-    transform: scale(1.1);
+    transform: scale(2.1);
 }
 
 #qrCode {
