@@ -1,6 +1,7 @@
 
 const beepSound = document.getElementById('beepSound');
 const selectSound = document.getElementById('selectSound');
+const gunshotSound = document.getElementById('gunshotSound');
 
 
 window.onload = () => {
@@ -11,14 +12,24 @@ window.onload = () => {
 };
 
 
-document.querySelectorAll('.menu-toggle, .menu-options a, .icon-container a').forEach(element => {
+document.querySelectorAll('a, button, input, .menu-toggle, .icon-container img').forEach(element => {
     element.addEventListener('mouseenter', () => {
         beepSound.currentTime = 0;
         beepSound.play();
     });
 });
 
-// Toggle the menu
+
+
+
+document.querySelectorAll('a, button, input, .menu-toggle, .icon-container img').forEach(clickable => {
+    clickable.addEventListener('click', () => {
+        selectSound.currentTime = 0;
+        selectSound.play();
+    });
+});
+
+
 const menuToggle = document.getElementById('menuToggle');
 const menuOptions = document.getElementById('menuOptions');
 menuToggle.addEventListener('click', () => {
@@ -26,16 +37,15 @@ menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('flipped');
 });
 
-// QR code functionality
+
 const tmhIcon = document.querySelector('.icon-container a:last-child'); // TMH Icon
 const qrCodeCanvas = document.getElementById('qrCode');
 
 tmhIcon.addEventListener('click', () => {
-    // Generate QR code
     const qr = new QRious({
         element: qrCodeCanvas,
         value: 'https://discord.gg/TMH',
-        size: 100 // Size of the QR code
+        size: 100
     });
 
     qrCodeCanvas.style.display = 'block';
@@ -50,10 +60,12 @@ tmhIcon.addEventListener('click', () => {
 const socomImage = document.getElementById('socomImage');
 socomImage.addEventListener('click', () => {
     socomImage.style.display = 'none';
-    document.body.style.cursor = 'url(media/socom.png), auto';
+    document.body.style.cursor = 'url(media/socom.png), auto'; // Change cursor to the SOCOM
+    gunshotSound.currentTime = 0;
+    gunshotSound.play();
 });
 
-// Canvas for TV static
+
 const staticCanvas = document.getElementById('staticCanvas');
 const staticCtx = staticCanvas.getContext('2d');
 
