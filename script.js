@@ -32,13 +32,33 @@ document.querySelectorAll('a, button, input, .menu-toggle, .icon-container img')
 
 const menuToggle = document.getElementById('menuToggle');
 const menuOptions = document.getElementById('menuOptions');
+const tomeContainer = document.querySelector('.tome-container');
+const tomeTitleDisplay = document.querySelector('.tome-title-display');
+
+
 menuToggle.addEventListener('click', () => {
     menuOptions.classList.toggle('show');
     menuToggle.classList.toggle('flipped');
+    
+    tomeContainer.classList.toggle('shift-down');
 });
 
 
-const tmhIcon = document.querySelector('.icon-container a:last-child'); // TMH Icon
+document.querySelectorAll('.tome').forEach(tome => {
+    const title = tome.querySelector('.book-title').innerText;
+
+    tome.addEventListener('mouseenter', () => {
+        tomeTitleDisplay.innerText = title;
+        tomeTitleDisplay.classList.add('visible');
+    });
+
+    tome.addEventListener('mouseleave', () => {
+        tomeTitleDisplay.classList.remove('visible');
+    });
+});
+
+
+const tmhIcon = document.querySelector('.icon-container a:last-child');
 const qrCodeCanvas = document.getElementById('qrCode');
 
 tmhIcon.addEventListener('click', () => {
@@ -60,7 +80,7 @@ tmhIcon.addEventListener('click', () => {
 const socomImage = document.getElementById('socomImage');
 socomImage.addEventListener('click', () => {
     socomImage.style.display = 'none';
-    document.body.style.cursor = 'url(media/socom.png), auto'; // Change cursor to the SOCOM
+    document.body.style.cursor = 'url(media/socom.png), auto'; 
     gunshotSound.currentTime = 0;
     gunshotSound.play();
 });
@@ -73,6 +93,47 @@ function resizeStaticCanvas() {
     staticCanvas.width = window.innerWidth;
     staticCanvas.height = window.innerHeight;
 }
+
+function addTome(title, link, imgSrc) {
+    const tomeContainer = document.querySelector('.tome-container');
+
+    const newTome = document.createElement('a');
+    newTome.href = link;
+    newTome.className = 'tome';
+    
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = title;
+    img.className = 'tome-icon';
+    
+
+    const span = document.createElement('span');
+    span.className = 'book-title';
+    span.innerText = title;
+    
+
+    newTome.appendChild(img);
+    newTome.appendChild(span);
+    
+
+    tomeContainer.appendChild(newTome);
+}
+
+
+function loadTomesFromJSON() {
+    fetch('tomes.json')
+        .then(response => response.json())
+        .then(data => {
+            data.tomes.forEach(tome => {
+                addTome(tome.title, tome.link, tome.image);
+            });
+        })
+        .catch(error => console.error('Error loading tomes:', error));
+}
+
+window.onload = function() {
+    loadTomesFromJSON();
+};
 
 function drawStatic() {
     const imageData = staticCtx.createImageData(staticCanvas.width, staticCanvas.height);

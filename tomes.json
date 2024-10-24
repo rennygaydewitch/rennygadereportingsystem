@@ -1,0 +1,24 @@
+{
+    "tomes": [
+        {
+            "title": "Book 1 Title",
+            "link": "link1.html",
+            "image": "media/tome.svg"
+        },
+        {
+            "title": "Book 2 Title",
+            "link": "link2.html",
+            "image": "media/tome.svg"
+        },
+        {
+            "title": "Book 3 Title",
+            "link": "link3.html",
+            "image": "media/tome.svg"
+        },
+        {
+            "title": "Book 4 Title",
+            "link": "link4.html",
+            "image": "media/tome.svg"
+        }
+    ]
+}
