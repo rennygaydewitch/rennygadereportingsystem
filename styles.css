@@ -123,6 +123,7 @@ body {
     opacity: 1;
 }
 
+
 .icon-container {
     display: flex;
     justify-content: center;
@@ -168,15 +169,14 @@ body {
 }
 
 .tome-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
     transition: transform 0.5s ease;
+}
+
+.tome-container.shifted {
+    transform: translateX(100px);
 }
 
 
@@ -185,6 +185,7 @@ body {
     position: relative;
     width: 100px;
     text-align: center;
+    text-decoration: none;
 }
 
 .tome-icon {
@@ -206,6 +207,22 @@ body {
     margin-top: 5px;
 }
 
+
 .tome:hover .book-title {
+    opacity: 1;
+}
+
+.tome-title-display {
+    position: absolute;
+    top: 200px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tome-title-display.visible {
     opacity: 1;
 }
