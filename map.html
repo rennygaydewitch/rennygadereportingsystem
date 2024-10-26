@@ -6,13 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Resource List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
     <canvas id="staticCanvas"></canvas>
+
+    <!-- Local Map using Leaflet.js -->
+    <div id="map" style="width: 640px; height: 480px;"></div>
+
     <div id="introText" class="intro-text">
-        This page contains a wide variety of LGBTQIA+ Resources, use the drop down menu to find resources for each state/country
+        This page contains a wide variety of LGBTQIA+ Resources, use the drop-down menu to find resources for each state/country.
     </div>
-    
+
     <div class="search-container">
         <input type="text" id="searchBar" placeholder="Search for a state or country...">
         <div id="searchResults"></div>
@@ -21,8 +27,8 @@
     <div class="menu-container">
         <div class="menu-options" id="menuOptions">
             <a href="rennygadereport.html">Report Rennygade Classics</a>
-            <a href="index.html">Home</a>
             <a href="magik.html">Magik Stuff</a>
+            <a href="index.html">Home</a>
         </div>
         
         <div class="menu-toggle" id="menuToggle">
@@ -32,14 +38,9 @@
         </div>
     </div>
 
-
-
-
     <audio id="beepSound" src="media/beep.wav"></audio>
     <audio id="selectSound" src="media/select.wav"></audio>
     <audio id="bgMusic" src="media/bgmusic.mp3" loop autoplay></audio>
     <script src="script.js"></script>
-
-
 </body>
 </html>

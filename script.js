@@ -4,33 +4,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (tomeContainer) {
         fetch('tomes.json')
             .then(response => {
-                console.log("Fetching JSON...");
                 if (!response.ok) {
                     throw new Error('Network response was not ok: ' + response.statusText);
                 }
                 return response.json();
             })
             .then(data => {
-                console.log("JSON data loaded:", data);
                 data.tomes.forEach(tome => {
                     addTome(tome.title, tome.link, tome.image);
                 });
             })
             .catch(error => console.error('Error loading tomes:', error));
-    } else {
-        console.log('No tome container found on this page.');
     }
+
     const menuToggle = document.getElementById('menuToggle');
     const menuOptions = document.getElementById('menuOptions');
     if (menuToggle && menuOptions) {
         menuToggle.addEventListener('click', () => {
             menuOptions.classList.toggle('show');
             menuToggle.classList.toggle('flipped');
-            if (menuOptions.classList.contains('show')) {
-                tomeContainer?.classList.add('slide-down');
-            } else {
-                tomeContainer?.classList.remove('slide-down');
-            }
+            tomeContainer?.classList.toggle('slide-down', menuOptions.classList.contains('show'));
         });
     }
 
@@ -43,9 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 beepSound.play();
             }
         });
-    });
 
-    clickableElements.forEach(element => {
         element.addEventListener('click', () => {
             const selectSound = document.getElementById('selectSound');
             if (selectSound) {
@@ -100,10 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tmhIcon && qrCodeCanvas) {
             tmhIcon.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log("Generating QR Code...");
                 try {
                     if (typeof QRious !== 'undefined') {
-                        const qr = new QRious({
+                        new QRious({
                             element: qrCodeCanvas,
                             value: 'https://discord.gg/TMH',
                             size: 100
@@ -125,6 +115,68 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('TMH Icon or QR Code canvas not found.');
         }
     });
+
+    const introText = document.getElementById('introText');
+    if (introText) {
+        introText.classList.add('visible');
+    } else {
+        console.error('Intro text element not found. Please make sure the element with id "introText" exists.');
+    }
+
+    const infoText = document.getElementById('introText');
+    const searchBar = document.getElementById('searchBar');
+    const searchResults = document.getElementById('searchResults');
+    let markers = [];
+    const map = L.map('map').setView([39.8283, -98.5795], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    document.getElementById('map').style.filter = 'grayscale(100%)';
+
+    fetch('resources.json')
+        .then(response => response.json())
+        .then(resources => {
+            resources.forEach(location => {
+                const coordinates = location.info.match(/Coordinates: ([-.\d]+),([-.\d]+)/);
+                if (coordinates) {
+                    const lat = parseFloat(coordinates[2]);
+                    const lon = parseFloat(coordinates[1]);
+                    const marker = L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`<strong>${location.name}</strong><br>${location.info}`);
+                    markers.push({ name: location.name, marker: marker });
+                }
+            });
+
+            searchBar.addEventListener('input', () => {
+                const query = searchBar.value;
+                searchResults.innerHTML = '';
+
+                const matchedMarkers = markers.filter(entry => entry.name.toLowerCase().includes(query.toLowerCase()));
+
+                if (matchedMarkers.length > 0) {
+                    searchResults.style.display = 'block';
+                    matchedMarkers.forEach(match => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-item');
+                        div.textContent = match.name;
+                        div.addEventListener('click', () => {
+                            infoText.textContent = `Selected Location: ${match.name}
+Info: ${match.marker.getPopup().getContent().split('<br>')[1]}`;
+                            map.setView(match.marker.getLatLng(), 10);
+                            match.marker.openPopup();
+                            searchResults.style.display = 'none';
+                            searchBar.value = '';
+                        });
+                        searchResults.appendChild(div);
+                    });
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+        })
+        .catch(error => console.error('Error loading resources:', error));
 });
 
 function addTome(title, link, imgSrc) {
@@ -154,43 +206,3 @@ function addTome(title, link, imgSrc) {
 
     tomeContainer.appendChild(newTome);
 }
-
-window.addEventListener('DOMContentLoaded', function() {
-    const introText = document.getElementById('introText');
-
-    if (introText) {
-        introText.classList.add('visible');
-    } else {
-        console.error('Intro text element not found. Please make sure the element with id "introText" exists.');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const infoText = document.getElementById('introText');
-    const searchBar = document.getElementById('searchBar');
-    const searchResults = document.getElementById('searchResults');
-
-    fetch('resources.json')
-        .then(response => response.json())
-        .then(resources => {
-            searchBar.addEventListener('input', () => {
-                const query = searchBar.value.toLowerCase();
-                searchResults.innerHTML = '';
-                searchResults.style.display = query ? 'block' : 'none';
-
-                resources.filter(resource => resource.name.toLowerCase().includes(query))
-                    .forEach(match => {
-                        const div = document.createElement('div');
-                        div.classList.add('search-item');
-                        div.textContent = match.name;
-                        div.addEventListener('click', () => {
-                            infoText.textContent = match.info;
-                            searchResults.style.display = 'none';
-                            searchBar.value = '';
-                        });
-                        searchResults.appendChild(div);
-                    });
-            });
-        })
-});
-
