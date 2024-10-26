@@ -1,23 +1,33 @@
 {
     "tomes": [
         {
-            "title": "Seiðr Magic: The Norse Tradition of Divination and Trance",
-            "link": "https://www.amazon.com.be/-/en/Dean-Kirkland/dp/1644119447/ref=asc_df_1644119447/?tag=begogshpadsp-21&linkCode=df0&hvadid=712628357664&hvpos=&hvnetw=g&hvrand=2964851743386234047&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9197085&hvtargid=pla-2204946282663&psc=1&mcid=e84acb5740eb3e6591d060c0bafbadf1&gad_source=1",
-            "image": "media/tome.svg"
+            "title": "Runes?",
+            "link": "https://youtu.be/_MpT21U0ltc",
+            "image": "media/video.svg"
         },
         {
             "title": "Aegishjalmur: The Book of Dragon Runes",
-            "link": "https://www.amazon.com.be/-/en/Professor-Philosophy-Michael-Kelly-MD/dp/1456513850/ref=asc_df_1456513850/?tag=begogshpadsp-21&linkCode=df0&hvadid=712627237386&hvpos=&hvnetw=g&hvrand=2964851743386234047&hvpone=&hvptwo=&hvqmt=&hvdev=m&hvdvcmdl=&hvlocint=&hvlocphy=9197085&hvtargid=pla-305467880818&psc=1&mcid=efc27fecf2be35e19180843982590308&gad_source=1",
+            "link": "media/books/Aegishjalmur.pdf",
             "image": "media/tome.svg"
         },
         {
             "title": "Remedies and Rituals: Folk Medicine in Norway and the New Land",
-            "link": "https://www.amazon.com/Remedies-Rituals-Folk-Medicine-Norway/dp/0873515765",
+            "link": "media/books/rrfolkmagic.pdf",
             "image": "media/tome.svg"
         },
         {
-            "title": "Witchcraft and Magic in the Nordic Middle Ages",
-            "link": "https://www.jstor.org/stable/j.ctt3fh7tt",
+            "title": "Galdrabok: A Icelandic Grimoire",
+            "link": "media/books/Galdrabok.pdf",
+            "image": "media/tome.svg"
+        },
+        {
+            "title": "Kalevala",
+            "link": "media/books/Kalevala.pdf",
+            "image": "media/tome.svg"
+        },
+        {
+            "title": "Finnish Folklore Atlas",
+            "link": "media/books/folkloreatlas.pdf",
             "image": "media/tome.svg"
         }
     ]

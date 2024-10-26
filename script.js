@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log('No tome container found on this page.');
     }
-    const tomeTitleDisplay = document.querySelector('.tome-title-display'); // Title above the rune
     const menuToggle = document.getElementById('menuToggle');
     const menuOptions = document.getElementById('menuOptions');
     if (menuToggle && menuOptions) {
@@ -164,32 +163,4 @@ window.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('Intro text element not found. Please make sure the element with id "introText" exists.');
     }
-});
-
-const style = document.createElement('style');
-style.innerHTML = `
-    .tome-container {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        transition: transform 0.5s ease-in-out;
-        transform: translateY(0);
-    }
-
-    .tome-container.slide-down {
-        transform: translateY(100px);
-    }
-`;
-document.head.appendChild(style);
-
-document.querySelectorAll('.tome').forEach(tome => {
-    const title = tome.querySelector('title').innerText;
-    tome.addEventListener('mouseenter', () => {
-        tomeTitleDisplay.innerText = title;
-        tomeTitleDisplay.classList.add('visible');
-    });
-
-    tome.addEventListener('mouseleave', () => {
-        tomeTitleDisplay.classList.remove('visible');
-    });
 });

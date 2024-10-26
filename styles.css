@@ -11,6 +11,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     cursor: auto;
+    position: relative;
 }
 
 .menu-container {
@@ -169,10 +170,9 @@ body {
 }
 
 .tome-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    transition: transform 0.5s ease;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .tome-container.shifted {
@@ -204,6 +204,7 @@ body {
     color: white;
     opacity: 0;
     transition: opacity 0.3s;
+    margin-bottom: 5px;
     margin-top: 5px;
 }
 
@@ -214,13 +215,14 @@ body {
 
 .tome-title-display {
     position: absolute;
-    top: 200px;
+    top: 150px;
     text-align: center;
     width: 100%;
     font-size: 20px;
     color: white;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 10;
 }
 
 .tome-title-display.visible {
