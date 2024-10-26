@@ -164,3 +164,33 @@ window.addEventListener('DOMContentLoaded', function() {
         console.error('Intro text element not found. Please make sure the element with id "introText" exists.');
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const infoText = document.getElementById('introText');
+    const searchBar = document.getElementById('searchBar');
+    const searchResults = document.getElementById('searchResults');
+
+    fetch('resources.json')
+        .then(response => response.json())
+        .then(resources => {
+            searchBar.addEventListener('input', () => {
+                const query = searchBar.value.toLowerCase();
+                searchResults.innerHTML = '';
+                searchResults.style.display = query ? 'block' : 'none';
+
+                resources.filter(resource => resource.name.toLowerCase().includes(query))
+                    .forEach(match => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-item');
+                        div.textContent = match.name;
+                        div.addEventListener('click', () => {
+                            infoText.textContent = match.info;
+                            searchResults.style.display = 'none';
+                            searchBar.value = '';
+                        });
+                        searchResults.appendChild(div);
+                    });
+            });
+        })
+});
+
