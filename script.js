@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tomeContainer = document.querySelector('.tome-container');
 
     if (tomeContainer) {
-        fetch('tomes.json')
+        fetch('tools/tomes.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok: ' + response.statusText);
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('map').style.filter = 'grayscale(100%)';
 
-    fetch('resources.json')
+    fetch('tools/resources.json')
         .then(response => response.json())
         .then(resources => {
             resources.forEach(location => {
