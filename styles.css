@@ -93,9 +93,19 @@ body {
     }
 }
 
+@keyframes flash {
+    0% { background-color: white; }
+    50% { background-color: rgb(255, 255, 255); }
+    100% { background-color: white; }
+}
+
 .menu-options.show {
     max-height: 100px;
     opacity: 1;
+}
+
+.flash {
+    animation: flash 0.3s ease-in-out;
 }
 
 .intro-text {

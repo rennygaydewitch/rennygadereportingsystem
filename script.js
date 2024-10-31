@@ -122,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('Intro text element not found. Please make sure the element with id "introText" exists.');
     }
-
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.2;
     const infoText = document.getElementById('introText');
     const searchBar = document.getElementById('searchBar');
     const searchResults = document.getElementById('searchResults');

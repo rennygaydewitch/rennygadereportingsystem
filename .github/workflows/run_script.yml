@@ -24,7 +24,7 @@ jobs:
         pip install requests
 
     - name: Run Python script
-      run: python issue2json.py
+      run: python tools/issue2json.py
 
     - name: Commit and push changes
       run: |
