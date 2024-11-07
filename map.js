@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         div.classList.add('search-item');
                         div.textContent = match.name;
                         div.addEventListener('click', () => {
-                            infoText.textContent = `Selected Location: ${match.name}
-Info: ${match.marker.getPopup().getContent().split('<br>')[1]}`;
+                            // infoText.textContent = `Selected Location: ${match.name}\nInfo: ${match.marker.getPopup().getContent().split('<br>')[1]}`;
+                            infoText.innerHTML = `<h2>${match.name}</h2>${match.marker.getPopup().getContent().split('<br>')[1]}`;
                             map.setView(match.marker.getLatLng(), 10);
                             match.marker.openPopup();
                             searchResults.style.display = 'none';
