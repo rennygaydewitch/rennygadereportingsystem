@@ -242,6 +242,14 @@ body {
     opacity: 1;
 }
 
+div#map {
+    /* maximum height and width is 75% of screen */
+    width: 640px;
+    max-width: 75%;
+    height: 480px;
+    max-height: 75vh;
+}
+
 .search-container {
     margin-top: 20px;
     position: relative;
