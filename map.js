@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    document.getElementById('map').style.filter = 'grayscale(100%)';
+    document.getElementById('map').style.filter = 'grayscale(50%)';
 
     fetch('tools/resources.json')
         .then(response => response.json())
